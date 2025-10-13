@@ -4,13 +4,6 @@
 
 I'm passionate about contributing to open source projects and helping build better tools for developers. Here are some of my notable contributions:
 
-### 🎨 Frontend & UI Libraries
-
-#### [Tonic UI](https://github.com/trendmicro-frontend/tonic-ui)
-A React-based UI component library that provides a set of accessible, reusable, and composable React components.
-
-- **[PR #579](https://github.com/trendmicro-frontend/tonic-ui/pull/579)** - Fixed Tooltip component props forwarding issue to root element for better customization
-
 ### 🤖 AI & Machine Learning
 
 #### [Dify Official Plugins](https://github.com/langgenius/dify-official-plugins)
@@ -18,6 +11,14 @@ Official plugins for Dify, an LLMOps platform for building and operating AI-nati
 
 - **[PR #1643](https://github.com/langgenius/dify-official-plugins/pull/1643)** - Fixed AWS Bedrock Claude model name resolution error that frequently occurred during model usage
 - **[PR #1687](https://github.com/langgenius/dify-official-plugins/pull/1687)** - Enhanced Bedrock plugin to prioritize global region when using Claude models
+- **[PR #1837](https://github.com/langgenius/dify-official-plugins/pull/1837)** - Fixed the issue where the 4.1 Opus and 4.0 Opus cannot be used with non-inference_profile_id
+
+### 🎨 Frontend & UI Libraries
+
+#### [Tonic UI](https://github.com/trendmicro-frontend/tonic-ui)
+A React-based UI component library that provides a set of accessible, reusable, and composable React components.
+
+- **[PR #579](https://github.com/trendmicro-frontend/tonic-ui/pull/579)** - Fixed Tooltip component props forwarding issue to root element for better customization
 
 ---
 
