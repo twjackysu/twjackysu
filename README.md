@@ -6,6 +6,12 @@ I'm passionate about contributing to open source projects and helping build bett
 
 ### 🤖 AI & Machine Learning
 
+#### [Dify](https://github.com/langgenius/dify)
+An open-source LLMOps platform for building and operating AI-native applications.
+
+- **[PR #26850](https://github.com/langgenius/dify/pull/26850)** - Added optional status filtering and count statistics endpoints to the workflow run console API to improve workflow monitoring and analysis capabilities  
+  *(Enhances workflow observability by enabling status-based filtering and aggregated run statistics for better dashboards and performance insights.)*
+
 #### [Dify Official Plugins](https://github.com/langgenius/dify-official-plugins)
 Official plugins for Dify, an LLMOps platform for building and operating AI-native applications.
 
