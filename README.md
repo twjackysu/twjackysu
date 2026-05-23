@@ -32,8 +32,8 @@ A React-based UI component library that provides a set of accessible, reusable, 
 
 <div align="center">
   
-<img src="https://github-readme-stats.vercel.app/api?username=twjackysu&show_icons=true&theme=radical&count_private=true" alt="Jacky's GitHub stats" />
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=twjackysu&layout=compact&theme=radical" alt="Top Languages" />
+<img src="https://github-readme-stats-nine-orcin-70.vercel.app/api?username=twjackysu&show_icons=true&theme=radical&count_private=true" alt="Jacky's GitHub stats" />
+<img src="https://github-readme-stats-nine-orcin-70.vercel.app/api/top-langs/?username=twjackysu&layout=compact&theme=radical" alt="Top Languages" />
 
 </div>
 
