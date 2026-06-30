@@ -19,6 +19,11 @@ Official plugins for Dify, an LLMOps platform for building and operating AI-nati
 - **[PR #1687](https://github.com/langgenius/dify-official-plugins/pull/1687)** - Enhanced Bedrock plugin to prioritize global region when using Claude models
 - **[PR #1837](https://github.com/langgenius/dify-official-plugins/pull/1837)** - Fixed the issue where the 4.1 Opus and 4.0 Opus cannot be used with non-inference_profile_id
 
+#### [FastMCP](https://github.com/PrefectHQ/fastmcp)
+The fast, Pythonic way to build MCP servers and clients — maintained by Prefect, used by a large share of MCP servers in the ecosystem.
+
+- **[PR #4206](https://github.com/PrefectHQ/fastmcp/pull/4206)** - Fixed OAuth interoperability bugs blocking client bootstrap: made bearer-auth challenges RFC 6750 §3.1 compliant (distinguishing missing vs. invalid tokens) and corrected CIMD authorization server metadata so public clients like Claude Desktop can select the right token-endpoint auth method
+
 ### 🎨 Frontend & UI Libraries
 
 #### [Tonic UI](https://github.com/trendmicro-frontend/tonic-ui)
