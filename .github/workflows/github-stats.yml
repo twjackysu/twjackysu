@@ -1,0 +1,97 @@
+name: Update GitHub Stats
+
+on:
+  schedule:
+    - cron: "17 0 * * *" # daily, 00:17 UTC (08:17 Taipei)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Never run two updates at once -> no push races between runs.
+concurrency:
+  group: github-stats
+  cancel-in-progress: false
+
+env:
+  GH_USER: twjackysu
+  # Pinned commit of the official anuraghazra/github-readme-stats.
+  # Bump deliberately when you want newer features/fixes.
+  GRS_REF: 54a7985aeefda00d5eadb55b80c17c7f976c37d2
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout profile repo
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Checkout github-readme-stats (official)
+        uses: actions/checkout@v4
+        with:
+          repository: anuraghazra/github-readme-stats
+          ref: ${{ env.GRS_REF }}
+          path: .grs
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install github-readme-stats
+        working-directory: .grs
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Generate SVGs
+        env:
+          # Needs a PAT for private stats; see README/notes. GITHUB_TOKEN is only a fallback.
+          PAT_1: ${{ secrets.GH_STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          PORT: "9000"
+        run: |
+          set -euo pipefail
+          (cd .grs && node express.js > "$RUNNER_TEMP/grs.log" 2>&1 &)
+
+          for i in $(seq 1 30); do
+            curl -sf -o /dev/null "http://localhost:9000/api?username=$GH_USER" && break
+            sleep 1
+          done
+
+          fetch() { # <out> <url>
+            curl -sf --retry 3 --retry-delay 5 -o "$RUNNER_TEMP/$1" "$2"
+            # grs returns HTTP 200 with an error card on failure; refuse to commit those.
+            head -c 2000 "$RUNNER_TEMP/$1" | grep -q "<svg" || { echo "$1: not an SVG"; exit 1; }
+            if grep -q "Something went wrong" "$RUNNER_TEMP/$1"; then
+              echo "$1: github-readme-stats returned an error card"
+              grep -o 'Something went wrong[^<]*\|<tspan[^>]*>[^<]*' "$RUNNER_TEMP/$1" | head || true
+              exit 1
+            fi
+            mv "$RUNNER_TEMP/$1" "$1"
+          }
+
+          fetch github-stats.svg "http://localhost:9000/api?username=${GH_USER}&show_icons=true&theme=radical"
+          fetch top-langs.svg "http://localhost:9000/api/top-langs/?username=${GH_USER}&layout=compact&theme=radical"
+
+      - name: Commit and push (only if changed)
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add github-stats.svg top-langs.svg
+          if git diff --cached --quiet; then
+            echo "No SVG changes."
+            exit 0
+          fi
+          git commit -m "chore: update generated GitHub stats SVGs"
+
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "push failed (attempt $i), retrying..."
+            sleep $((i * 3))
+          done
+          echo "push failed after retries"; exit 1
