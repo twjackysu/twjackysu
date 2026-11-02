@@ -9,7 +9,7 @@
         aria-labelledby="descId"
       >
         <title id="titleId">Jacky Su's GitHub Stats, Rank: A</title>
-        <desc id="descId">Total Stars Earned: 203, Total Commits  (last year) : 1474, Total PRs: 768, Total Issues: 14, Contributed to (last year): 2</desc>
+        <desc id="descId">Total Stars Earned: 203, Total Commits  (last year) : 1461, Total PRs: 768, Total Issues: 14, Contributed to (last year): 2</desc>
         <style>
           .header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
@@ -73,7 +73,7 @@
         stroke-dashoffset: 251.32741228718345;
       }
       to {
-        stroke-dashoffset: 45.08129420298376;
+        stroke-dashoffset: 45.10711055344124;
       }
     }
   
